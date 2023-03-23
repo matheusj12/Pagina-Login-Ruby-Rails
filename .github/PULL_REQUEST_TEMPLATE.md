@@ -12,14 +12,14 @@
 
 <h1>#Pagina-Login-Ruby-Rails</h1>
 
-## Description :nerd_face: 
+## :gem: Description gem	:gem:
 Clearly and concisely describe the problem. 
 
-## Solution description
+## :computer: Solution description :computer:
 Describe your code changes in detail for reviews. Explain the technical solution you have provided and how it fix the issue case.
 
-## Screenshots
+## :shark: Screenshots 	:shark:
 
-## Covered unit test cases - Rspec/Capybara
+## :metal: Covered unit test cases - Rspec/Capybara :metal:
 
-## Dependencies
+## :handshake: Dependencies :handshake:
