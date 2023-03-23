@@ -8,6 +8,10 @@ gem 'omniauth'
 gem 'omniauth-digitalocean'
 
 
+gem "bootstrap-sass"
+gem "jquery-rails"
+gem "cssbundling-rails", "~> 1.1"
+gem "jsbundling-rails", "~> 1.1"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 
@@ -75,9 +79,3 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
-
-gem "bootstrap", "~> 5.2"
-gem "jquery-rails"
-gem "cssbundling-rails", "~> 1.1"
-
-gem "jsbundling-rails", "~> 1.1"

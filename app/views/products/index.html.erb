@@ -1,5 +1,20 @@
 <p style="color: green"><%= notice %></p>
 
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+    <h1><%= link_to "Produtos", root_path, id: "logo" %></h1>
+      <nav>
+        <ul class="nav pull-right">
+          <li><%= link_to "Home", root_path %></li>
+          <li><%= link_to "docs", root_path %></li>
+          <li><%= link_to "produtos", root_path %></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header> 
+
 <h1>Products</h1>
 
 <div id="products">
@@ -12,3 +27,5 @@
 </div>
 
 <%= link_to "New product", new_product_path %>
+
+
