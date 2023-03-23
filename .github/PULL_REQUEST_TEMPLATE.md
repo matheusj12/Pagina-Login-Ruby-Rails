@@ -12,7 +12,7 @@
 
 <h1>#Pagina-Login-Ruby-Rails</h1>
 
-## :gem: Description gem	:gem:
+## :gem: Description :gem:
 Clearly and concisely describe the problem. 
 
 ## :computer: Solution description :computer:
