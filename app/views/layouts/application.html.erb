@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Sharkapp</title>
+    <title>Sua aplicação Rails</title>
     <%= csrf_meta_tags %>
+
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_path 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
 
+    <!-- Adicione a linha abaixo -->
+    <%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' %>
+
+  </head>
   <body>
     <%= yield %>
   </body>

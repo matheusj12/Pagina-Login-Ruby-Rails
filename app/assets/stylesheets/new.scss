@@ -1,0 +1,56 @@
+/* new.scss */
+
+// Definir o estilo do corpo e do fundo
+body {
+  background-color: black;
+}
+
+// Estilos para o contêiner principal
+.form-signin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+// Estilos para a imagem
+form img {
+  border: 1px solid white; // Adicione uma borda branca à imagem
+}
+
+// Estilos para os campos e rótulos
+.custom-form-floating {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.custom-form-floating label {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  background-color: blue;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.custom-form-floating input {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+// Estilos para o botão de login
+.actions input[type="submit"] {
+  background-color: blue;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.actions input[type="submit"]:hover {
+  background-color: darkblue;
+}
