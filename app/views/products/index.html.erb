@@ -1,27 +1,38 @@
-<%# botão sair  %>
-<hr>
-<p style="color: green"><%= notice %></p>
-<% if user_signed_in? %>
- <div> Welcome <%= current_user.email %> </div>
-  <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
-<% else %>
-  <%= button_to "Sign in", new_user_session_path %>
-<% end %>
-<hr>
+<!DOCTYPE html>
+<html>
+   <head>
+      <!-- Incluir a biblioteca jQuery -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <!-- Carregar o arquivo JavaScript para alternância de tema -->
 
-<h1>Products</h1>
+      <!-- Incluir a referência à folha de estilo específica da view -->
+      <%= yield :stylesheet %>
+      <!-- tema claro e tema escuro -->
+      <%= javascript_include_tag 'application' %>
+   </head>
+   <body>
+      <hr>
+        <p style="color: green"><%= notice %></p>
+        <% if user_signed_in? %>
+      <div> Welcome <%= current_user.email %> </div>
+        <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+        <% else %>
+        <%= button_to "Sign in", new_user_session_path %>
+        <% end %>
+      <button id="theme-toggle">Alternar tema</button>
+      <hr>
 
-<div id="products">
-  <% @products.each do |product| %>
-    <%= render product %>
-    <p>
-      <%= link_to "Show this product", product %>
-    </p>
-  <% end %>
-</div>
+      <h1>Products</h1>
 
-<%= link_to "New product", new_product_path %>
+      <div id="products">
+         <% @products.each do |product| %>
+         <%= render product %>
+         <p>
+            <%= link_to "Show this product", product %>
+         </p>
+         <% end %>
+      </div>
 
-
-
-
+      <%= link_to "New product", new_product_path %>
+   </body>
+</html>
