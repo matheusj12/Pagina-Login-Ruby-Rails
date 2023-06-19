@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Sua aplicação Rails</title>
+    <title>Aplicativo</title>
     <%= csrf_meta_tags %>
 
     <%= csp_meta_tag %>
@@ -12,7 +12,48 @@
     <%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' %>
 
   </head>
-  <body>
+ <body>
+    <% unless controller_name == 'sessions' && action_name == 'new' %>
+      <nav class="navbar custom-navbar navbar-static-top">
+        <div class="container">
+          <div class="navbar-header">
+            <%= button_tag type: "button", class: "navbar-toggle collapsed", "data-toggle": "collapse", "data-target": "#navbar", "aria-expanded": "false", "aria-controls": "navbar" do %>
+              <span class="sr-only">Toggle navigation</span>
+            <% end %>
+            <%= link_to "Computação na Prática", "#", class: "navbar-brand" %>
+            <ul class="nav navbar-nav navbar-right">
+              <li><%= link_to 'Pesquisa', '#' %></li>
+              <li class="active"><%= link_to 'Cursos', '#' %></li>
+              <li><%= link_to 'Notícias', '#' %></li>
+            </ul>
+          </div>
+
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right align-items-center">
+<% if user_signed_in? %>
+  <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+      <%= current_user.email %>
+    </a>
+  </li>
+<li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+
+
+
+<% else %>
+  <li><%= link_to "Sign in", new_user_session_path %></li>
+<% end %>
+              <li class="align-self-center">
+                <%= link_to '#', id: 'theme-toggle', class: 'theme-toggle-button' do %>
+                  <%= image_tag('settings_brightness.svg', alt: 'Toggle Theme', width: 30, height: 30) %>
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <% end %>
+
     <%= yield %>
-  </body>
+ </body>
 </html>
