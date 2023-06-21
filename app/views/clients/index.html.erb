@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Incluir a biblioteca jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Carregar o arquivo JavaScript para alternância de tema -->
+
+    <!-- Incluir a referência à folha de estilo específica da view -->
+    <%= yield :stylesheet %>
+    <!-- tema claro e tema escuro -->
+    <%= javascript_include_tag 'application' %>
+  </head>
+  <body>
+    <h1>Clientes</h1>
+
+    <div id="clients">
+      <% @clients.each do |client| %>
+        <%= render partial: 'client', locals: { client: client } %>
+        <p>
+          <%= link_to "Mostrar cliente", client %>
+        </p>
+      <% end %>
+    </div>
+
+    <%= link_to "Novo cliente", new_client_path %>
+  </body>
+</html>

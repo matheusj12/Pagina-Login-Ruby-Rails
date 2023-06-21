@@ -13,7 +13,7 @@
 
   </head>
  <body>
-    <% unless controller_name == 'sessions' && action_name == 'new' %>
+    <% unless controller_name == 'sessions' && action_name == 'new' || controller_name == 'registrations' || controller_name == 'passwords' %>
       <nav class="navbar custom-navbar navbar-static-top">
         <div class="container">
           <div class="navbar-header">
@@ -30,20 +30,17 @@
 
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right align-items-center">
-<% if user_signed_in? %>
-  <li class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-      <%= current_user.email %>
-    </a>
-  </li>
-<li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
-
-
-
-<% else %>
-  <li><%= link_to "Sign in", new_user_session_path %></li>
-<% end %>
-              <li class="align-self-center">
+              <% if user_signed_in? %>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <%= current_user.email %>
+                  </a>
+                </li>
+                <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+                  <% else %>
+                <li><%= link_to "Sign in", new_user_session_path %></li>
+                  <% end %>
+                <li class="align-self-center">
                 <%= link_to '#', id: 'theme-toggle', class: 'theme-toggle-button' do %>
                   <%= image_tag('settings_brightness.svg', alt: 'Toggle Theme', width: 30, height: 30) %>
                 <% end %>
@@ -53,7 +50,6 @@
         </div>
       </nav>
     <% end %>
-
     <%= yield %>
  </body>
 </html>

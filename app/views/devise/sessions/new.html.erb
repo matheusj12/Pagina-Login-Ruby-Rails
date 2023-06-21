@@ -35,9 +35,10 @@
                 </div>
                 <% end %>
 
-                <div class="actions">
-                <%= f.submit "Log in" %>
-                </div>
+            <div class="actions">
+                <%= f.submit "Log in", class: (@theme == 'dark' ? 'dark' : 'light') %>
+            </div>
+
                 <% end %>
 
                 <%= render "devise/shared/links" %>
