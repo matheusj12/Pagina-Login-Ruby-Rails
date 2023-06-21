@@ -1,52 +1,31 @@
-
-// Definir o estilo do corpo e do fundo
-body {
-  background-color: #00CDCD;
-}
-
-// Estilos para o contêiner principal
-.form-signin {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
-.form-flu {
-
-}
-
-// Estilos para a imagem
-form img {
-  border: 1px solid red; // Adicione uma borda branca à imagem
-}
-
-// Estilos para os campos e rótulos
-.custom-form-floating {
-  position: center;
-  margin-bottom: 10px;
-}
-
-.custom-form-floating input {
-
-  padding: 10px 60px;
-  border-radius: 5px;
-}
-
-// Estilos para o botão de login
-.actions input[type="submit"] {
+/* Estilos para o botão de login no tema claro */
+.actions input[type="submit"].light {
   background-color: black;
   color: white;
+}
+
+/* Estilos para o botão de login no tema escuro */
+.actions input[type="submit"].dark {
+  background-color: white;
+  color: black;
+}
+
+/* Estilos adicionais para ambos os temas */
+.actions input[type="submit"] {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
-  border: 1px solid #eee;
-	border-radius: 20px;
+  margin: 5px;
+  box-shadow: 0 0 5px red; /* Adiciona uma sombra vermelha em volta do botão */
 }
 
 .actions input[type="submit"]:hover {
   background-color: black;
+}
+
+/* Estilos para o botão de login no tema escuro quando hover */
+.actions input[type="submit"].dark:hover {
+  background-color: white
 }
