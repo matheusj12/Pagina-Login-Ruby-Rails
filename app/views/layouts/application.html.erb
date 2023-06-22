@@ -20,11 +20,13 @@
             <%= button_tag type: "button", class: "navbar-toggle collapsed", "data-toggle": "collapse", "data-target": "#navbar", "aria-expanded": "false", "aria-controls": "navbar" do %>
               <span class="sr-only">Toggle navigation</span>
             <% end %>
-            <%= link_to "Computação na Prática", "#", class: "navbar-brand" %>
             <ul class="nav navbar-nav navbar-right">
-              <li><%= link_to 'Pesquisa', '#' %></li>
-              <li class="active"><%= link_to 'Cursos', '#' %></li>
-              <li><%= link_to 'Notícias', '#' %></li>
+              <li><%= link_to 'Home', home_index_path %></li>
+              <li><%= link_to 'Vendas', vendas_path %></li>
+              <li><%= link_to 'Clientes', clients_path %></li>
+              <li><%= link_to 'Produtos', products_path %></li>
+              <li><%= link_to 'Serviço', servicos_path %></li>
+              <li><%= link_to 'Usuarios', '#' %></li>
             </ul>
           </div>
 

@@ -1,0 +1,9 @@
+<h1>Venda</h1>
+
+<p><strong>Produto:</strong> <%= @venda.produto %></p>
+<p><strong>Quantidade:</strong> <%= @venda.quantidade %></p>
+<p><strong>Preço:</strong> <%= @venda.preco %></p>
+<p><strong>Data:</strong> <%= @venda.data %></p>
+
+<%= link_to 'Editar', edit_venda_path(@venda) %> |
+<%= link_to 'Voltar', vendas_path %>

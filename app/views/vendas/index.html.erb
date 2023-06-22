@@ -1,0 +1,24 @@
+<h1>Vendas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Produto</th>
+      <th>Quantidade</th>
+      <th>Preço</th>
+      <th>Data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @vendas.each do |venda| %>
+      <tr>
+        <td><%= venda.produto %></td>
+        <td><%= venda.quantidade %></td>
+        <td><%= venda.preco %></td>
+        <td><%= venda.data %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Nova Venda', new_venda_path %>
