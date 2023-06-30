@@ -2,6 +2,10 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
+//= require chartkick
+//= require Chart.bundle
+
+
 
 
 // ----------------------------------// logica que muda o thema-------------------------------------------------------------
