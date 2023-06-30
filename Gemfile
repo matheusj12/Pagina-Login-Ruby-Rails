@@ -6,6 +6,11 @@ gem 'multi_json'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-digitalocean'
+gem 'chartkick'
+gem 'groupdate'
+
+
+
 
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"

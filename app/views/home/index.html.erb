@@ -1,4 +1,22 @@
-<h1>Bem-vindo à Página Inicial</h1>
+
+<!DOCTYPE html>
+<html>
+   <head>
+      <!-- Incluir a biblioteca jQuery -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <!-- Carregar o arquivo JavaScript para alternância de tema -->
+
+      <!-- Incluir a referência à folha de estilo específica da view -->
+      <%= yield :stylesheet %>
+      <!-- tema claro e tema escuro -->
+      <%= javascript_include_tag 'application' %>
+   </head>
+   <body>
+
+
+      <div>
+
+      <h1>Bem-vindo à Página Inicial</h1>
 <p>Esta é a página inicial do seu aplicativo. Você pode personalizá-la conforme suas necessidades.</p>
 <p>Algumas ideias do que você pode adicionar aqui:</p>
 <ul>
@@ -9,3 +27,12 @@
   <li>Apresentar estatísticas ou destaques relevantes.</li>
 </ul>
 <p>Fique à vontade para editar este arquivo em <code>app/views/home/index.html.erb</code> para personalizar o conteúdo de acordo com suas necessidades.</p>
+
+      </div>
+
+<%= line_chart @produto %>
+<%= pie_chart @produto.group_by { |p| p[:name] }.transform_values(&:count) %>
+
+
+   </body>
+</html>
