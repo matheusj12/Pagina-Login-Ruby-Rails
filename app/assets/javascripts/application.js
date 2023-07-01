@@ -4,6 +4,7 @@
 //= require_tree .
 //= require chartkick
 //= require Chart.bundle
+//= link home/home.css
 
 
 

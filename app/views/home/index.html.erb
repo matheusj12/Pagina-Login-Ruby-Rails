@@ -1,38 +1,65 @@
-
 <!DOCTYPE html>
 <html>
-   <head>
-      <!-- Incluir a biblioteca jQuery -->
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <!-- Carregar o arquivo JavaScript para alternância de tema -->
+<head>
+  <title>Meu Aplicativo</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-      <!-- Incluir a referência à folha de estilo específica da view -->
-      <%= yield :stylesheet %>
-      <!-- tema claro e tema escuro -->
-      <%= javascript_include_tag 'application' %>
-   </head>
-   <body>
+  <!-- Incluir a biblioteca jQuery -->
+  <%= javascript_include_tag 'https://code.jquery.com/jquery-3.6.0.min.js' %>
 
+  <!-- Carregar o arquivo JavaScript para alternância de tema -->
+  <%= javascript_include_tag 'application' %>
 
-      <div>
+  <% content_for :stylesheet do %>
+    <%= stylesheet_link_tag 'home/home.css', media: 'all' %>
+  <% end %>
 
-      <h1>Bem-vindo à Página Inicial</h1>
-<p>Esta é a página inicial do seu aplicativo. Você pode personalizá-la conforme suas necessidades.</p>
-<p>Algumas ideias do que você pode adicionar aqui:</p>
-<ul>
-  <li>Apresentar uma breve descrição do seu aplicativo ou negócio.</li>
-  <li>Incluir um banner ou imagem promocional.</li>
-  <li>Listar recursos ou serviços principais oferecidos.</li>
-  <li>Exibir depoimentos de clientes satisfeitos.</li>
-  <li>Apresentar estatísticas ou destaques relevantes.</li>
-</ul>
-<p>Fique à vontade para editar este arquivo em <code>app/views/home/index.html.erb</code> para personalizar o conteúdo de acordo com suas necessidades.</p>
+  <!-- Incluir a referência à folha de estilo específica da view -->
+  <%= yield :stylesheet %>
 
-      </div>
+  <!-- Incluir a biblioteca do Google Charts -->
+  <%= javascript_include_tag "//www.gstatic.com/charts/loader.js" %>
 
-<%= line_chart @produto %>
-<%= pie_chart @produto.group_by { |p| p[:name] }.transform_values(&:count) %>
+  <!-- Adicione a linha abaixo -->
+  <%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' %>
 
+</head>
 
-   </body>
+<body class="chart-grid">
+  <div class="page-border">
+    <div class="top-line"></div>
+    <div class="top-line"></div>
+
+    <div class="chart-container main-chart">
+      <!-- Gráfico de pizza com a contagem de produtos por nome -->
+      <%= pie_chart @produto_counts, donut: true, library: { packages: ['corechart'] } %>
+    </div>
+
+    <div class="chart-container">
+      <!-- Gráfico de pizza com a contagem de produtos por nome -->
+      <%= pie_chart @produto_counts, donut: true, library: { packages: ['corechart'] } %>
+    </div>
+
+    <div class="chart-container">
+      <!-- Gráfico de pizza com a contagem de produtos por nome -->
+      <%= pie_chart @produto_counts, donut: true, library: { packages: ['corechart'] } %>
+    </div>
+
+    <div class="chart-container">
+      <!-- Gráfico de pizza com a contagem de produtos por nome -->
+      <%= pie_chart @produto_counts, donut: true, library: { packages: ['corechart'] } %>
+    </div>
+
+    <div class="chart-container">
+      <!-- Gráfico de pizza com a contagem de produtos por nome -->
+      <%= pie_chart @produto_counts, donut: true, library: { packages: ['corechart'] } %>
+    </div>
+  </div>
+
+  <%= javascript_tag do %>
+    // Carregar a biblioteca do Google Charts
+    google.charts.load('current', { 'packages': ['corechart'] });
+  <% end %>
+</body>
 </html>
