@@ -1,2 +1,33 @@
-<h1>Servico#index</h1>
-<p>Find me in app/views/servico/index.html.erb</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Incluir a biblioteca jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Carregar o arquivo JavaScript para alternância de tema -->
+
+    <!-- Incluir a referência à folha de estilo específica da view -->
+    <%= yield :stylesheet %>
+    <!-- tema claro e tema escuro -->
+    <%= javascript_include_tag 'application' %>
+  </head>
+  <body>
+    <h1>Servico</h1>
+
+  <div id="Servicos">
+    <% if @Servico.present? %>
+      <% @Servico.each_with_index do |servico, index| %>
+        <%= render partial: 'servico', locals: { servico: servico, index: index } %>
+        <p>
+          <%= link_to "Mostrar serviço ##{index + 1}", servico %>
+        </p>
+      <% end %>
+    <% else %>
+        <p>Nenhum serviço disponível.</p>
+    <% end %>
+  </div>
+
+
+
+    <%= link_to "Novo Servico", new_servico_path %>
+  </body>
+</html>

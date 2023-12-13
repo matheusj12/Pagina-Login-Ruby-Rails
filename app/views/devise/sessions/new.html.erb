@@ -18,7 +18,7 @@
             <div class="form-flu">
                 <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-horizontal' }) do |f| %>
                 <%= image_tag("ruby.png", width: 100, height: 100) %>
-                <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+                <h1 class="h3 mb-3 fw-normal">Sistema de Vendas</h1>
 
                 <div class="form-floating custom-form-floating">
                 <%= f.email_field :email, autofocus: true, placeholder: 'Digite seu usuário', autocomplete: 'email' %>
@@ -28,7 +28,7 @@
                 <%= f.password_field :password, placeholder: 'Digite sua  senha', autocomplete: 'current-password' %>
                 </div>
 
-                <% if devise_mapping.rememberable? %>
+     <% if devise_mapping.rememberable? %>
                 <div class="field">
                 <%= f.check_box :remember_me %>
                 <%= f.label :remember_me %>
