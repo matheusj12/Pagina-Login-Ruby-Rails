@@ -26,40 +26,31 @@
 
 </head>
 
-<body class="chart-grid">
-  <div class="page-border">
-    <div class="top-line"></div>
-    <div class="top-line"></div>
+  <body class="chart-grid">
 
-    <div class="chart-container main-chart">
-      <!-- Gráfico de pizza com a contagem de produtos por nome -->
-      <%= pie_chart @produto_counts, donut: true, library: { packages: ['corechart'] } %>
-    </div>
+    <div class="page-border"
+      <div class="top-line">
+          <div class="page-border">
+            <div class="top-line">
+              <div class="chart-container main-chart">
+              <!-- Gráfico de pizza com a contagem de produtos por nome -->
+              <%= pie_chart @produto_counts, donut: true, library: { packages: ['corechart'] } %>
+            </div>
+          </div>
+      </div>
 
-    <div class="chart-container">
-      <!-- Gráfico de pizza com a contagem de produtos por nome -->
-      <%= pie_chart @produto_counts, donut: true, library: { packages: ['corechart'] } %>
-    </div>
+      <div class="page-border">
+        <div class="top-line">
+          <div class="chart-container main-chart">
+            <!-- Gráfico de pizza com a contagem de produtos por nome -->
+            <%= pie_chart @produto_counts, donut: true, library: { packages: ['corechart'] } %>
+          </div>
+        </div>
+      </div>
 
-    <div class="chart-container">
-      <!-- Gráfico de pizza com a contagem de produtos por nome -->
-      <%= pie_chart @produto_counts, donut: true, library: { packages: ['corechart'] } %>
-    </div>
-
-    <div class="chart-container">
-      <!-- Gráfico de pizza com a contagem de produtos por nome -->
-      <%= pie_chart @produto_counts, donut: true, library: { packages: ['corechart'] } %>
-    </div>
-
-    <div class="chart-container">
-      <!-- Gráfico de pizza com a contagem de produtos por nome -->
-      <%= pie_chart @produto_counts, donut: true, library: { packages: ['corechart'] } %>
-    </div>
-  </div>
-
-  <%= javascript_tag do %>
-    // Carregar a biblioteca do Google Charts
-    google.charts.load('current', { 'packages': ['corechart'] });
-  <% end %>
-</body>
+    <%= javascript_tag do %>
+      // Carregar a biblioteca do Google Charts
+      google.charts.load('current', { 'packages': ['corechart'] });
+    <% end %>
+  </body>
 </html>
