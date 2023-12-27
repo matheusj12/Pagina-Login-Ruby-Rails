@@ -8,6 +8,8 @@ gem 'omniauth'
 gem 'omniauth-digitalocean'
 gem 'chartkick'
 gem 'groupdate'
+gem 'will_paginate'
+gem 'faker'
 
 
 
