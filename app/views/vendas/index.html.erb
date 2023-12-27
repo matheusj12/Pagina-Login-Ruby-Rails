@@ -22,20 +22,31 @@
 
   <!-- Adicione a linha abaixo -->
   <%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' %>
+
+  <!-- Adicione DataTables visualização -->
+  <%= stylesheet_link_tag 'https://cdn.datatables.net/1.11.6/css/jquery.dataTables.css' %>
+  <%= javascript_include_tag 'https://cdn.datatables.net/1.11.6/js/jquery.dataTables.js' %>
+  <%= stylesheet_link_tag 'https://cdn.datatables.net/1.11.6/css/jquery.dataTables.min.css' %>
+  <%= javascript_include_tag 'https://code.jquery.com/jquery-3.6.0.min.js' %>
+  <%= javascript_include_tag 'https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js' %>
+
+
 </head>
-  <body class="chart-grid">
-    <div class="page-border">
-      <div class="top-line"></div>
-      <h1>Vendas</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Produto</th>
-            <th>Quantidade</th>
-            <th>Preço</th>
-            <th>Data</th>
-          </tr>
-        </thead>
+
+<body class="chart-grid">
+  <div class="page-border">
+    <div class="top-line"></div>
+    <h1>Vendas</h1>
+
+    <table id="tabela-vendas">
+      <thead>
+        <tr>
+          <th>Produto</th>
+          <th>Quantidade</th>
+          <th>Preço</th>
+          <th>Data</th>
+        </tr>
+      </thead>
       <tbody>
         <% @vendas.each do |venda| %>
           <tr>
@@ -45,8 +56,8 @@
             <td><%= venda.data %></td>
           </tr>
         <% end %>
-        </tbody>
-      </table>
+      </tbody>
+    </table>
 
     <%= link_to 'Nova Venda', new_venda_path %>
   </div>

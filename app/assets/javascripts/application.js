@@ -41,3 +41,8 @@ $(document).ready(function() {
   });
 });
 // -----------------------------------------------------------------------------------------------
+
+// app/assets/javascripts/vendas.js
+$(document).ready(function() {
+  $('#tabela-vendas').DataTable();
+});
