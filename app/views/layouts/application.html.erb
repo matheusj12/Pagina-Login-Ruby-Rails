@@ -3,16 +3,17 @@
   <head>
     <title>Aplicativo</title>
     <%= csrf_meta_tags %>
-
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
-    <!-- Adicione a linha abaixo -->
+    <!-- Mova a linha abaixo para o final -->
+    <%= javascript_include_tag 'https://code.jquery.com/jquery-3.6.0.min.js' %>
+
     <%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' %>
 
   </head>
- <body>
+  <body>
     <% unless controller_name == 'sessions' && action_name == 'new' || controller_name == 'registrations' || controller_name == 'passwords' %>
       <nav class="navbar custom-navbar navbar-static-top">
         <div class="container">
@@ -39,10 +40,10 @@
                   </a>
                 </li>
                 <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
-                  <% else %>
+              <% else %>
                 <li><%= link_to "Sign in", new_user_session_path %></li>
-                  <% end %>
-                <li class="align-self-center">
+              <% end %>
+              <li class="align-self-center">
                 <%= link_to '#', id: 'theme-toggle', class: 'theme-toggle-button' do %>
                   <%= image_tag('settings_brightness.svg', alt: 'Toggle Theme', width: 30, height: 30) %>
                 <% end %>
@@ -53,5 +54,5 @@
       </nav>
     <% end %>
     <%= yield %>
- </body>
+  </body>
 </html>
