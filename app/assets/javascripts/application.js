@@ -7,8 +7,6 @@
 //= link home/home.css
 
 
-
-
 // ----------------------------------// logica que muda o thema-------------------------------------------------------------
 $(document).ready(function() {
   // Verifica se o tema está definido no localStorage
@@ -42,7 +40,3 @@ $(document).ready(function() {
 });
 // -----------------------------------------------------------------------------------------------
 
-// app/assets/javascripts/vendas.js
-$(document).ready(function() {
-  $('#tabela-vendas').DataTable();
-});

@@ -2,7 +2,7 @@ class VendasController < ApplicationController
   before_action :set_venda, only: [:show, :edit, :update, :destroy]
 
   def index
-    @vendas = Venda.all
+    @vendas = Venda.paginate(page: params[:page], per_page: 10)
   end
 
   def show
