@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   resources :vendas
   resources :servicos
   resources :funcionarios
+  resources :automacao_tarefas
 
 
   get 'home/index', as: 'home_index'  # Adicione esta linha
