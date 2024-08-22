@@ -26,9 +26,9 @@
     <% end %>
 
     <div class="field">
-      <%= form.label :produto %>
-      <%= form.text_field :produto %>
-    </div>
+      <%= form.label :product_id, "Produto" %>
+      <%= form.collection_select :product_id,  Product.all, :id, :name, { prompt: "Selecione um produto" } %>
+      </div>
 
     <div class="field">
       <%= form.label :quantidade %>

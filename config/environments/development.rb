@@ -59,6 +59,9 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  # Allow access to the Rails console from external IPs
+# config.web_console.permissions = '10.0.60.189'
+
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 

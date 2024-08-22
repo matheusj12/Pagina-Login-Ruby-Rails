@@ -35,6 +35,8 @@ Rails.application.routes.draw do
 
   get 'home/index', as: 'home_index'  # Adicione esta linha
 
+
+end
   # ... outras rotas e configurações adicionais ...
   # rails server -b 10.0.60.189
-end
+  #kill -9 3173
