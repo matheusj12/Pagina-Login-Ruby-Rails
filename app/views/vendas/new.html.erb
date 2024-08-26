@@ -25,6 +25,7 @@
 
 <body>
   <div class="page-border">
+
     <div class="top-line"></div>
 
     <%= form_with(model: @venda, local: true) do |form| %>
@@ -38,6 +39,11 @@
           </ul>
         </div>
       <% end %>
+
+      <div class="field">
+        <%= form.label :funcionario_id, "Funcionario" %>
+        <%= form.collection_select :Funcionario_id, Funcionario.all, :id, :nome, { prompt: "Selecione o Funcionario" } %>
+      </div>
 
       <div class="field">
         <%= form.label :client_id, "Cliente" %>

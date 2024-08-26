@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_22_181122) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_26_132934) do
   create_table "automacao_tarefas", force: :cascade do |t|
     t.string "nome"
     t.text "descricao"
@@ -306,7 +306,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_22_181122) do
   end
 
   create_table "vendas", force: :cascade do |t|
-    t.string "produto"
     t.integer "quantidade"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
