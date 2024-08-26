@@ -45,6 +45,6 @@ class VendasController < ApplicationController
   end
 
   def venda_params
-    params.require(:venda).permit(:product_id,:client_id, :produto, :quantidade, :preco, :data)
+    params.require(:venda).permit(:product_id,:client_id, :produto, :quantidade, :data)
   end
 end
