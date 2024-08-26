@@ -1,3 +1,9 @@
+.titulo-da-pagina {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .page-border {
   border: 2px solid #ccc;
   border-radius: 8px;
@@ -6,7 +12,6 @@
   padding: 10px;
 }
 
-/* Adicione este trecho ao seu arquivo CSS */
 #tabela-vendas_wrapper {
   padding: 20px;
 }

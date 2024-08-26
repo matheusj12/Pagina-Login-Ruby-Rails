@@ -11,10 +11,10 @@
     <%= javascript_include_tag 'application' %>
   </head>
   <body>
-    <h1>Clientes1</h1>
-
-    <div id="clients">
-      <%= form_with(model: client, local: true) do |form| %>
+    <div class="page-border">
+      <div class="top-line"></div>
+        <div id="clients">
+        <%= form_with(model: client, local: true) do |form| %>
         <% if client.errors.any? %>
           <div id="error_explanation">
             <h2><%= pluralize(client.errors.count, "error") %> prohibited this client from being saved:</h2>
@@ -25,6 +25,11 @@
             </ul>
           </div>
         <% end %>
+
+        <div class="field">
+          <%= form.label :CPF %>
+          <%= form.text_field :name %>
+        </div>
 
         <div class="field">
           <%= form.label :name %>
