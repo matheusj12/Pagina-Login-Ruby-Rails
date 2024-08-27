@@ -1,15 +1,33 @@
+<!-- app/views/vendas/show.html.erb -->
 <h1>Venda</h1>
 
-<p><strong>Produto:</strong> <%= @venda.product.name %></p>
-<p><strong>Quantidade:</strong> <%= @venda.quantidade %></p>
-
+<p><strong>Funcionário:</strong> <%= @venda.funcionario_id %></p>
+<p><strong>Cliente:</strong> <%= @venda.client_id %></p>
 <p><strong>Data:</strong> <%= @venda.data %></p>
+
+<h3>Produtos na Venda</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Produto</th>
+      <th>Quantidade</th>
+      <th>Preço</th>
+      <th>Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @venda.order_items.each do |item| %>
+      <tr>
+        <td><%= item.product.id %></td>
+        <td><%= item.quantidade %></td>
+        <td><%= number_to_currency(item.product.price) %></td>
+        <td><%= number_to_currency(item.quantidade * item.product.price) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <%= link_to 'Editar', edit_venda_path(@venda) %> |
 <%= link_to 'Voltar', vendas_path %> |
 
-  <%= button_to "Exluir venda", @venda_path, method: :delete %>
-</div>
-
-
-
+<%= button_to "Excluir Venda", @venda, method: :delete, data: { confirm: 'Você tem certeza?' } %>
