@@ -1,76 +1,110 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+<!-- app/views/vendas/new.html.erb (ou edit.html.erb, conforme necessário) -->
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h4 class="card-title">Criar Nova Venda</h4>
+    </div>
+    <div class="card-body">
+      <%= form_with(model: @venda, local: true, class: 'form') do |form| %>
+        <% if @venda.errors.any? %>
+          <div id="error_explanation" class="alert alert-danger">
+            <h4><%= pluralize(@venda.errors.count, "error") %> proibiram esta venda de ser salva:</h4>
+            <ul>
+              <% @venda.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
 
-  <!-- Incluir a biblioteca jQuery -->
-  <%= javascript_include_tag 'https://code.jquery.com/jquery-3.6.0.min.js' %>
+        <div class="form-group">
+          <%= form.label :funcionario_id, "Funcionário" %>
+          <%= form.collection_select :funcionario_id, Funcionario.all, :id, :nome, { prompt: "Selecione o Funcionário" }, class: "form-control" %>
+        </div>
 
-  <!-- Incluir a folha de estilo Bootstrap -->
-  <%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' %>
+        <div class="form-group">
+          <%= form.label :client_id, "Cliente" %>
+          <%= form.collection_select :client_id, Client.all, :id, :name, { prompt: "Selecione um Cliente" }, class: "form-control" %>
+        </div>
 
-  <!-- Incluir a folha de estilo específica da view -->
-  <%= stylesheet_link_tag 'vendas/vendas.css', media: 'all' %>
+        <div class="form-group">
+          <h5>Adicionar Produtos ao Carrinho</h5>
+          <div class="input-group">
+            <%= text_field_tag :product_search, '', placeholder: "Pesquise pelo ID ou nome do produto...", id: "product_search", class: "form-control" %>
+            <div class="input-group-append">
+              <button type="button" class="btn btn-success" id="add-product">
+                <i class="fas fa-plus-circle"></i> Adicionar
+              </button>
+            </div>
+          </div>
 
-  <!-- Carregar o arquivo JavaScript para alternância de tema -->
-  <%= javascript_include_tag 'application' %>
+          <div id="product_suggestions" class="list-group mt-2" style="display: none;">
+            <!-- Sugestões serão exibidas aqui -->
+          </div>
 
-  <!-- Adicione DataTables visualização -->
-  <%= javascript_include_tag 'https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js' %>
-  <%= javascript_include_tag 'https://cdn.datatables.net/1.11.6/js/dataTables.bootstrap.min.js' %>
-  <!-- Incluir a biblioteca do Google Charts -->
-  <%= javascript_include_tag "//www.gstatic.com/charts/loader.js" %>
-</head>
-
-<body>
-  <div class="page-border">
-
-    <div class="top-line"></div>
-
-    <%= form_with(model: @venda, local: true) do |form| %>
-      <% if @venda.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@venda.errors.count, "error") %> prohibited this venda from being saved:</h2>
-          <ul>
-            <% @venda.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
+          <ul id="selected-products" class="list-group mt-3">
+            <!-- Produtos selecionados serão exibidos aqui -->
           </ul>
         </div>
+
+        <div class="form-group">
+          <%= form.label :data, "Data da Venda" %>
+          <%= form.date_select :data, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.submit "Fechar Venda", class: "btn btn-primary btn-lg btn-block" %>
+        </div>
       <% end %>
-
-      <div class="field">
-        <%= form.label :funcionario_id, "Funcionario" %>
-        <%= form.collection_select :Funcionario_id, Funcionario.all, :id, :nome, { prompt: "Selecione o Funcionario" } %>
-      </div>
-
-      <div class="field">
-        <%= form.label :client_id, "Cliente" %>
-        <%= form.collection_select :client_id, Client.all, :id, :name, { prompt: "Selecione um cliente" } %>
-      </div>
-
-      <div class="field">
-      <%= form.label :product_id, "Produto" %>
-      <%= form.collection_select :product_id,  Product.all, :id, :name, { prompt: "Selecione um produto" } %>
-      </div>
-
-
-      <div class="field">
-        <%= form.label :quantidade %>
-        <%= form.number_field :quantidade %>
-      </div>
-
-
-      <div class="field">
-        <%= form.label :data %>
-        <%= form.date_select :data %>
-      </div>
-
-      <div class="actions">
-        <%= form.submit %>
-      </div>
-    <% end %>
+    </div>
   </div>
-</body>
-</html>
+</div>
+
+<script>
+$(document).ready(function() {
+  $('#product_search').on('keyup', function() {
+    var query = $(this).val();
+    if (query.length > 0) {
+      $.ajax({
+        url: "<%= search_products_path %>", // Rota para buscar produtos
+        data: { q: query },
+        dataType: 'json',
+        success: function(data) {
+          $('#product_suggestions').empty().show();
+          if (data.length > 0) {
+            data.forEach(function(product) {
+              $('#product_suggestions').append('<a href="#" class="list-group-item list-group-item-action suggestion" data-id="' + product.id + '">' + product.name + '</a>');
+            });
+          } else {
+            $('#product_suggestions').append('<div class="list-group-item">Nenhum produto encontrado</div>');
+          }
+        },
+        error: function() {
+          $('#product_suggestions').empty().show().append('<div class="list-group-item">Erro ao buscar produtos</div>');
+        }
+      });
+    } else {
+      $('#product_suggestions').hide();
+    }
+  });
+
+  $('#product_suggestions').on('click', '.suggestion', function(e) {
+    e.preventDefault();
+    var productId = $(this).data('id');
+    var productName = $(this).text();
+    var productItem = '<li class="list-group-item d-flex justify-content-between align-items-center" data-product-id="' + productId + '">' +
+                      '<span>Produto: ' + productName + '</span>' +
+                      '<input type="hidden" name="venda[order_items_attributes][][product_id]" value="' + productId + '">' +
+                      '<input type="number" name="venda[order_items_attributes][][quantidade]" class="form-control form-control-sm ml-2" value="1" style="width: 100px;">' +
+                      '<button type="button" class="btn btn-danger btn-sm ml-2 remove-product">Remover</button>' +
+                      '</li>';
+    $('#selected-products').append(productItem);
+    $('#product_suggestions').hide();
+    $('#product_search').val('');
+  });
+
+  $('#selected-products').on('click', '.remove-product', function() {
+    $(this).closest('li').remove();
+  });
+});
+</script>
