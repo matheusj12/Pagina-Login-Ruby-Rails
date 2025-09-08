@@ -33,3 +33,50 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Node modules (if using webpacker or similar)
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Coverage reports
+/coverage/
+
+# RubyMine
+/.idea
+/cmake-build-*/
+
+# Documentation cache
+/.yardoc/
+
+# Backup files
+*.bak
+*.backup
+
+# Database dumps
+*.sql
+*.dump
