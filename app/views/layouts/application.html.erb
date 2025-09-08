@@ -1,85 +1,139 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Aplicativo</title>
+    <title><%= content_for?(:title) ? yield(:title) : "Sistema de Gestão Empresarial" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    
+    <!-- Chart.js -->
+    <%= javascript_include_tag "//www.gstatic.com/charts/loader.js" %>
 
-    <!-- Mova a linha abaixo para o final -->
-    <%= javascript_include_tag 'https://code.jquery.com/jquery-3.6.0.min.js' %>
-
-    <%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' %>
-
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        line-height: 1.6;
+      }
+      
+      .navbar-custom {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+      }
+      
+      .navbar-custom .navbar-nav .nav-link {
+        color: rgba(255,255,255,0.9);
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+      
+      .navbar-custom .navbar-nav .nav-link:hover {
+        color: #ffffff;
+        background-color: rgba(255,255,255,0.1);
+        border-radius: 6px;
+      }
+      
+      .dropdown-menu {
+        border: none;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        border-radius: 12px;
+      }
+    </style>
   </head>
 
   <body>
     <% unless controller_name == 'sessions' && action_name == 'new' || controller_name == 'registrations' || controller_name == 'passwords' %>
-      <nav class="navbar custom-navbar navbar-static-top">
+      <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
         <div class="container">
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right align-items-center">
-              <% if user_signed_in? %>
-                <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <%= current_user.email %>
-                  </a>
-                </li>
-                <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
-              <% else %>
-                <li><%= link_to "Sign in", new_user_session_path %></li>
-              <% end %>
-              <li class="align-self-center">
-                <%= link_to '#', id: 'theme-toggle', class: 'theme-toggle-button' do %>
-                  <%= image_tag('settings_brightness.svg', alt: 'Toggle Theme', width: 30, height: 30) %>
+          <%= link_to "Sistema de Gestão", root_path, class: "navbar-brand text-white fw-bold" %>
+          
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <%= link_to home_index_path, class: "nav-link #{'active' if current_page?(home_index_path)}" do %>
+                  <i class="fas fa-home me-1"></i> Dashboard
                 <% end %>
               </li>
+              
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                  <i class="fas fa-shopping-cart me-1"></i> Vendas
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to vendas_path, class: "dropdown-item" do %><i class="fas fa-list me-2"></i> Listar Vendas<% end %></li>
+                  <li><%= link_to clients_path, class: "dropdown-item" do %><i class="fas fa-users me-2"></i> Clientes<% end %></li>
+                  <li><%= link_to products_path, class: "dropdown-item" do %><i class="fas fa-box me-2"></i> Produtos<% end %></li>
+                </ul>
+              </li>
+              
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                  <i class="fas fa-building me-1"></i> Financeiro
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to conta_pagars_path, class: "dropdown-item" do %><i class="fas fa-money-bill-wave me-2"></i> Contas a Pagar<% end %></li>
+                  <li><%= link_to conta_recebers_path, class: "dropdown-item" do %><i class="fas fa-hand-holding-usd me-2"></i> Contas a Receber<% end %></li>
+                  <li><%= link_to fluxo_caixas_path, class: "dropdown-item" do %><i class="fas fa-chart-line me-2"></i> Fluxo de Caixa<% end %></li>
+                </ul>
+              </li>
+              
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                  <i class="fas fa-users-cog me-1"></i> RH
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to funcionarios_path, class: "dropdown-item" do %><i class="fas fa-user-tie me-2"></i> Funcionários<% end %></li>
+                  <li><%= link_to folha_pagamentos_path, class: "dropdown-item" do %><i class="fas fa-file-invoice-dollar me-2"></i> Folha de Pagamento<% end %></li>
+                  <li><%= link_to departamentos_path, class: "dropdown-item" do %><i class="fas fa-sitemap me-2"></i> Departamentos<% end %></li>
+                </ul>
+              </li>
             </ul>
-          </div>
-          <div class="navbar-header">
-            <%= button_tag type: "button", class: "navbar-toggle collapsed", "data-toggle": "collapse", "data-target": "#navbar", "aria-expanded": "false", "aria-controls": "navbar" do %>
-              <span class="sr-only">Toggle navigation</span>
-            <% end %>
-            <ul class="nav navbar-nav navbar-right">
-              <li><%= link_to 'Home', home_index_path %></li>
-              <li><%= link_to 'Vendas', vendas_path %></li>
-              <li><%= link_to 'Clientes', clients_path %></li>
-              <li><%= link_to 'Produtos', products_path %></li>
-              <li><%= link_to 'cadastro_ativos', cadastro_ativos_path %></li>
-              <li><%= link_to 'clients', clients_path %></li>
-              <li><%= link_to 'compras', compras_path %></li>
-              <li><%= link_to 'consulta_estoques', consulta_estoques_path %></li>
-              <li><%= link_to 'conta_pagars', conta_pagars_path %></li>
-              <li><%= link_to 'conta_recebers', conta_recebers_path %></li>
-              <li><%= link_to 'departamentos', departamentos_path %></li>
-              <li><%= link_to 'fluxo_caixas', fluxo_caixas_path %></li>
-              <li><%= link_to 'folha_pagamentos', folha_pagamentos_path %></li>
-              <li><%= link_to 'fornecedors', fornecedors_url %></li>
-              <li><%= link_to 'funcionarios', funcionarios_url %></li>
-              <li><%= link_to 'gerenciamento_contas_bancaria', gerenciamento_contas_bancaria_path %></li>
-              <li><%= link_to 'gestao_beneficios', gestao_beneficios_path %></li>
-              <li><%= link_to 'ordem_pagamentos', ordem_pagamentos_path %></li>
-              <li><%= link_to 'pedido_compras', pedido_compras_path %></li>
-              <li><%= link_to 'pedido_vendas', pedido_vendas_path %></li>
-              <li><%= link_to 'ponto_eletronicos', ponto_eletronicos_path %></li>
-              <li><%= link_to 'processo_admissaos', processo_admissaos_path %></li>
-              <li><%= link_to 'products', products_path %></li>
-              <li><%= link_to 'projetos', projetos_path %></li>
-              <li><%= link_to 'relatorios', relatorios_path %></li>
-
-
-              <li><%= link_to 'tesouraria', tesouraria_path %></li>
-              <li><%= link_to 'titulos_baixados', titulos_baixados_path %></li>
-              <li><%= link_to 'titulos_em_abertos', titulos_em_abertos_path %></li>
-
-              <li><%= link_to 'vendas', vendas_path %></li>
-              <li><%= link_to 'automacao_tarefas', automacao_tarefas_path %></li>
+            
+            <ul class="navbar-nav">
+              <% if user_signed_in? %>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                    <i class="fas fa-user-circle me-1"></i> <%= current_user.email %>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Perfil</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Configurações</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item text-danger" do %><i class="fas fa-sign-out-alt me-2"></i> Sair<% end %></li>
+                  </ul>
+                </li>
+              <% else %>
+                <li class="nav-item">
+                  <%= link_to new_user_session_path, class: "nav-link" do %>
+                    <i class="fas fa-sign-in-alt me-1"></i> Entrar
+                  <% end %>
+                </li>
+              <% end %>
             </ul>
           </div>
         </div>
       </nav>
     <% end %>
-    <%= yield %>
+    
+    <main>
+      <%= yield %>
+    </main>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </body>
 </html>

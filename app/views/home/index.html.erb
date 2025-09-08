@@ -1,56 +1,214 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Meu Aplicativo</title>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+<% content_for :title, "Dashboard - Sistema de Gestão" %>
 
-  <!-- Incluir a biblioteca jQuery -->
-  <%= javascript_include_tag 'https://code.jquery.com/jquery-3.6.0.min.js' %>
-
-  <!-- Carregar o arquivo JavaScript para alternância de tema -->
-  <%= javascript_include_tag 'application' %>
-
-  <% content_for :stylesheet do %>
-    <%= stylesheet_link_tag 'home/home.css', media: 'all' %>
-  <% end %>
-
-  <!-- Incluir a referência à folha de estilo específica da view -->
-  <%= yield :stylesheet %>
-
-  <!-- Incluir a biblioteca do Google Charts -->
-  <%= javascript_include_tag "//www.gstatic.com/charts/loader.js" %>
-
-  <!-- Adicione a linha abaixo -->
-  <%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' %>
-
-</head>
-
-  <body class="chart-grid">
-
-    <div class="page-border">
-      <div class="top-line">
-          <div class="page-border">
-            <div class="top-line">
-              <div class="chart-container main-chart">
-              <!-- Gráfico de pizza com a contagem de produtos por nome -->
-              <%= pie_chart @produto_counts, donut: true, library: { packages: ['corechart'] } %>
-            </div>
+<div class="home-dashboard">
+  <!-- Hero Section -->
+  <section class="hero-section bg-gradient-primary text-white">
+    <div class="container">
+      <div class="row align-items-center min-vh-50">
+        <div class="col-lg-6">
+          <h1 class="display-4 fw-bold mb-3">
+            Sistema de Gestão
+            <span class="text-warning">Empresarial</span>
+          </h1>
+          <p class="lead mb-4">
+            Centralize todos os processos da sua empresa em uma única plataforma moderna e intuitiva.
+          </p>
+          <div class="d-flex gap-3">
+            <%= link_to "Começar Agora", products_path, class: "btn btn-warning btn-lg px-4" %>
+            <button class="btn btn-outline-light btn-lg px-4" data-bs-toggle="modal" data-bs-target="#demoModal">
+              Ver Demo
+            </button>
           </div>
-      </div>
-
-      <div class="page-border">
-        <div class="top-line">
-          <div class="chart-container main-chart">
-            <!-- Gráfico de pizza com a contagem de produtos por nome -->
-            <%= pie_chart @produto_counts, donut: true, library: { packages: ['corechart'] } %>
+        </div>
+        <div class="col-lg-6 text-center">
+          <div class="hero-image">
+            <i class="fas fa-chart-line fa-10x text-warning opacity-75"></i>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-    <%= javascript_tag do %>
-      // Carregar a biblioteca do Google Charts
-      google.charts.load('current', { 'packages': ['corechart'] });
-    <% end %>
-  </body>
-</html>
+  <!-- Stats Section -->
+  <section class="stats-section py-5 bg-light">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-3 col-sm-6">
+          <div class="stat-card text-center p-4 bg-white rounded-3 shadow-sm h-100">
+            <i class="fas fa-users fa-3x text-primary mb-3"></i>
+            <h3 class="h4 mb-2">Clientes</h3>
+            <p class="h2 fw-bold text-primary mb-0"><%= Client.count %></p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="stat-card text-center p-4 bg-white rounded-3 shadow-sm h-100">
+            <i class="fas fa-box fa-3x text-success mb-3"></i>
+            <h3 class="h4 mb-2">Produtos</h3>
+            <p class="h2 fw-bold text-success mb-0"><%= Product.count %></p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="stat-card text-center p-4 bg-white rounded-3 shadow-sm h-100">
+            <i class="fas fa-shopping-cart fa-3x text-info mb-3"></i>
+            <h3 class="h4 mb-2">Vendas</h3>
+            <p class="h2 fw-bold text-info mb-0"><%= Venda.count rescue 0 %></p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="stat-card text-center p-4 bg-white rounded-3 shadow-sm h-100">
+            <i class="fas fa-user-tie fa-3x text-warning mb-3"></i>
+            <h3 class="h4 mb-2">Funcionários</h3>
+            <p class="h2 fw-bold text-warning mb-0"><%= Funcionario.count rescue 0 %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Charts Section -->
+  <section class="charts-section py-5">
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col-12 text-center">
+          <h2 class="display-6 fw-bold mb-3">Analytics e Relatórios</h2>
+          <p class="lead text-muted">Visualize os dados da sua empresa em tempo real</p>
+        </div>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="chart-card bg-white rounded-3 shadow-sm p-4 h-100">
+            <h3 class="h5 fw-bold mb-3">
+              <i class="fas fa-chart-pie text-primary me-2"></i>
+              Distribuição de Produtos
+            </h3>
+            <div class="chart-container">
+              <% if @produto_counts.any? %>
+                <%= pie_chart @produto_counts, 
+                    donut: true, 
+                    colors: ['#007bff', '#28a745', '#ffc107', '#dc3545', '#6f42c1', '#fd7e14'],
+                    library: { 
+                      packages: ['corechart'],
+                      pieHole: 0.4,
+                      chartArea: { width: '80%', height: '80%' },
+                      legend: { position: 'bottom' },
+                      backgroundColor: 'transparent'
+                    } %>
+              <% else %>
+                <div class="text-center py-5">
+                  <i class="fas fa-chart-pie fa-3x text-muted mb-3"></i>
+                  <p class="text-muted">Nenhum produto cadastrado ainda</p>
+                  <%= link_to "Cadastrar Produto", new_product_path, class: "btn btn-primary" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-6">
+          <div class="chart-card bg-white rounded-3 shadow-sm p-4 h-100">
+            <h3 class="h5 fw-bold mb-3">
+              <i class="fas fa-chart-bar text-success me-2"></i>
+              Produtos Recentes
+            </h3>
+            <div class="recent-products">
+              <% if @produtos.any? %>
+                <% @produtos.limit(5).each do |produto| %>
+                  <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                    <div>
+                      <h6 class="mb-0"><%= produto.name %></h6>
+                      <small class="text-muted">R$ <%= produto.price %></small>
+                    </div>
+                    <span class="badge bg-primary rounded-pill">Ativo</span>
+                  </div>
+                <% end %>
+                <div class="text-center mt-3">
+                  <%= link_to "Ver Todos", products_path, class: "btn btn-outline-success btn-sm" %>
+                </div>
+              <% else %>
+                <div class="text-center py-5">
+                  <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+                  <p class="text-muted">Nenhum produto encontrado</p>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Actions -->
+  <section class="quick-actions py-5 bg-light">
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col-12 text-center">
+          <h2 class="display-6 fw-bold mb-3">Ações Rápidas</h2>
+          <p class="lead text-muted">Acesse rapidamente as principais funcionalidades</p>
+        </div>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+          <%= link_to products_path, class: "text-decoration-none" do %>
+            <div class="action-card bg-white rounded-3 shadow-sm p-4 text-center h-100 hover-lift">
+              <i class="fas fa-box fa-3x text-primary mb-3"></i>
+              <h5 class="fw-bold">Produtos</h5>
+              <p class="text-muted mb-0">Gerenciar catálogo</p>
+            </div>
+          <% end %>
+        </div>
+        
+        <div class="col-lg-3 col-md-6">
+          <%= link_to clients_path, class: "text-decoration-none" do %>
+            <div class="action-card bg-white rounded-3 shadow-sm p-4 text-center h-100 hover-lift">
+              <i class="fas fa-users fa-3x text-success mb-3"></i>
+              <h5 class="fw-bold">Clientes</h5>
+              <p class="text-muted mb-0">Cadastro e consulta</p>
+            </div>
+          <% end %>
+        </div>
+        
+        <div class="col-lg-3 col-md-6">
+          <%= link_to vendas_path, class: "text-decoration-none" do %>
+            <div class="action-card bg-white rounded-3 shadow-sm p-4 text-center h-100 hover-lift">
+              <i class="fas fa-shopping-cart fa-3x text-info mb-3"></i>
+              <h5 class="fw-bold">Vendas</h5>
+              <p class="text-muted mb-0">Registrar vendas</p>
+            </div>
+          <% end %>
+        </div>
+        
+        <div class="col-lg-3 col-md-6">
+          <%= link_to relatorios_path, class: "text-decoration-none" do %>
+            <div class="action-card bg-white rounded-3 shadow-sm p-4 text-center h-100 hover-lift">
+              <i class="fas fa-chart-line fa-3x text-warning mb-3"></i>
+              <h5 class="fw-bold">Relatórios</h5>
+              <p class="text-muted mb-0">Analytics detalhados</p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Modal Demo -->
+<div class="modal fade" id="demoModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="fas fa-play-circle me-2"></i>
+          Demo do Sistema
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center">
+        <i class="fas fa-video fa-5x text-primary mb-4"></i>
+        <h4>Explore todas as funcionalidades</h4>
+        <p class="text-muted">Vídeo demonstrativo em breve...</p>
+      </div>
+    </div>
+  </div>
+</div>
