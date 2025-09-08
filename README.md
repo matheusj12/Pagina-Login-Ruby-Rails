@@ -257,7 +257,7 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 **Matheus**
 - GitHub: [@matheusj12](https://github.com/matheusj12)
-- Email: matyftw12@gmail.com
+- Github: [@mattobl](https://github.com/mattobl) 
 
 ## 🙏 Agradecimentos
 
