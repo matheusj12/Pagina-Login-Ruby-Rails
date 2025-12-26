@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_26_132934) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_27_163311) do
   create_table "automacao_tarefas", force: :cascade do |t|
     t.string "nome"
     t.text "descricao"
@@ -179,6 +179,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_26_132934) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.integer "venda_id", null: false
+    t.integer "product_id", null: false
+    t.integer "quantidade"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_order_items_on_product_id"
+    t.index ["venda_id"], name: "index_order_items_on_venda_id"
+  end
+
   create_table "pedido_compras", force: :cascade do |t|
     t.string "fornecedor"
     t.date "data_pedido"
@@ -309,9 +319,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_26_132934) do
     t.integer "quantidade"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "preco"
     t.date "data"
     t.integer "client_id"
     t.integer "product_id"
+    t.integer "funcionario_id"
   end
+
+  add_foreign_key "order_items", "products"
+  add_foreign_key "order_items", "vendas"
 end

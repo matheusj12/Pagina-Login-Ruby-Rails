@@ -22,21 +22,21 @@ Rails.application.routes.draw do
   resources :compras
   resources :departamentos
   root 'home#index'
+  
 
   devise_for :users
 
-  resources :products
+  resources :products do
+    collection do
+      get 'search'  # Definido o caminho para a pesquisa de produtos
+    end
+  end
+
   resources :clients
   resources :vendas
   resources :servicos
   resources :funcionarios
   resources :automacao_tarefas
 
-
-  get 'home/index', as: 'home_index'  # Adicione esta linha
-
-
+  get 'home/index', as: 'home_index'
 end
-  # ... outras rotas e configurações adicionais ...
-  # rails server -b 10.0.60.189
-  #kill -9 3173
